@@ -1,0 +1,64 @@
+{% extends "base.html" %}       {# 继承base.html文件#}
+ 
+{% block title %}房间列表{% endblock %}   {#  定制title部分的内容#}
+
+{% block content %}
+{{  super()  }}  
+
+
+<section class="testimonials-1 bg-alternate" title="testimonials-1"  spellcheckker="false">
+   
+    <div class="container">
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-7 text-center">
+          <h2 class="mb-1">Some of our AI room</h2>
+          <h5 class="lead text-muted mb-3">Discover the Room  How Amazing It Was</h5>
+        </div>
+      </div>
+    
+      <div class="row text-center">
+        
+        {% for room in rooms %}
+        
+        <div class="col-xl-3 col-sm-6 mb-5">
+          <div class="bg-white rounded shadow py-5 px-4">
+            <a href="/room/{{room.id}}">
+            <img src={{ room.avatar }} alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow">
+            </a>
+
+            <p class="mt-3">{{ room.short_script }}</p>
+            <p class="mt-3">{{ room.long_script }}</p>       
+
+            <h5 class="mb-0">{{ room.title|title }}</h5>
+
+
+            
+            <div class="row">
+                <div class="col-sm-4"><span class="small  text-muted">@{{ room.owner.name }}.hot:{{room.hotvalue}}</span></div>
+                <div class="col-sm-4 ">
+                    <!--span class="small  text-muted" style="color: brown">hot:{{room.hotvalue}} </span>
+                    <span class="small  text-muted" style="color:blue">val:{{room.eggvalue}} </span-->
+                </div>
+                <div class="col-sm-4">
+                    
+                    <a href="/room/{{room.id}}"  class="btn "  style="border: 1px;">enter</a>
+                </div>
+            </div>
+            
+          </div>
+        </div>
+        {% endfor %}
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

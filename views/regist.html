@@ -1,0 +1,130 @@
+{% extends "base.html" %}       {# 继承base.html文件#}
+ 
+{% block title %}注册/登录{% endblock %}   {#  定制title部分的内容#}
+
+{% block content %}
+
+<main id="site-content" role="main"><div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8">
+
+
+        <div class="card">
+
+          <div class="p-4">
+            <div class="notifications" data-v-notifications="">
+
+              
+              
+              
+            </div>
+          </div>
+
+          <h4 class="card-title text-center">Create Account</h4>
+          <p class="text-center">Get started with your free account</p>
+
+          
+
+          <form onsubmit ="return false"  action="" method="post" enctype="multipart/form-data" data-v-url="user/index/signup" class="card-body mx-auto" href="">
+            <input type="hidden" name="csrf" data-v-csrf="" value="umyN5m109EINqMh0"><div class="mb-3 input-group">
+              <span class="input-group-text bd-0">
+                <i class="la la-user"></i>
+              </span>
+              <input name="username" id="username" class="form-control" placeholder="Username" type="text" required="" value=""></div> 
+
+            <!--div class="mb-3 input-group">
+              <span class="input-group-text">
+                <i class="la la-envelope"></i>
+              </span>
+              <input name="email" id="email" class="form-control" placeholder="Email address" type="email" required="" value=""></div> -->
+
+            
+
+            
+
+            <div class="mb-3 input-group">
+              <span class="input-group-text">
+                <i class="la la-lock"></i>
+              </span>
+              <input class="form-control" placeholder="Create password" type="password" minlength="4" autocorrect="off" id="password" name="password" required="" value=""></div> 
+            <div class="mb-3 input-group">
+              <span class="input-group-text">
+                <i class="la la-lock"></i>
+              </span>
+              <input class="form-control" placeholder="Repeat password" type="password" minlength="4" autocorrect="off" id ="cpassword" name="confirm_password" required="" value=""></div> 
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary w-100" id="submit">Create Account</button>
+            </div> 
+            <p id = "message" style="font-size: small; color: red;"></p>
+            <p class="text-center">Have an account? <a href="/user/login" data-v-url="user/login/index">Log In</a>
+            </p>
+          </form>
+        </div> 
+
+
+      </div>
+    </div>
+  </div>
+</main>
+
+{% endblock %}
+
+
+
+{% block  script %}  
+{{  super()  }}  
+
+<script  type="text/javascript">
+
+
+$(function () {
+
+    $('#submit').click(function () {
+      //在登录中使用cookie方法保存token
+      let data = {
+        "username": $("#username").val(),
+        //loginType: $('#checkbox1').is(':checked') ? "1" : "0",
+        "password": $("#password").val(),
+        "confirm_password":$("#cpassword").val(),
+      }
+
+      if (data.password != data.confirm_password){
+        $("#message").text("password are disaccord");
+        return ;
+      }
+
+
+      $.ajax({
+        type: "post", // 请求方式
+        contentType: "application/x-www-form-urlencoded",
+        data:data,
+        url: "/auth/regist",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
+        //dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+        success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
+          if (res.statu === "ok") {
+            $("#message").text("regist success,please sign in");
+            setTimeout(function(){
+              location.href="/user/login"
+
+            },4000)
+
+            //$(location).prop('href', './Account.html')
+           } else {
+            $("#message").text(res.info);
+           }
+        },
+
+        error: function (data, status, e) {
+          $("#message").text("find error ,try again");
+          //alert(JSON.stringify(data.error), 0);
+        }
+
+      });
+    });
+});
+
+
+</script>
+
+
+{% endblock %}

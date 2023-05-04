@@ -1,0 +1,560 @@
+{% extends "base.html" %}       {# 继承base.html文件#}
+ 
+{% block title %}房间编辑{% endblock %}   {#  定制title部分的内容#}
+
+{% block content %}
+{{  super()  }}  
+
+<section class="inner-page-hero">
+    <div class="">
+      <div class="title-container">
+        <div class="container">
+          <h1>Edit my AI bot</h1>
+        </div>
+      </div>    
+    </div>
+</section>
+
+<main id="site-content" role="main">
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="notifications" data-v-notifications="" style="display: none;">
+
+        <div class="alert alert-danger d-flex alert-dismissable" role="alert" data-v-if="this.errors">
+
+          <div class="icon align-middle me-2">
+            <i class="align-middle la la-2x lh-1 la-exclamation-triangle"></i>
+          </div>
+
+          <div class="flex-grow-1 align-self-center text-small">
+            <div data-v-notification-error="">
+              <div data-v-notification-text="">
+                Vvveb 0.2 is now available! <a href="update">Update now</a>
+              </div>
+            </div>
+          </div>
+
+
+          <button type="button" class="btn-close align-middle" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">
+              <!-- <i class="la la-times"></i> -->
+            </span>
+          </button>
+        </div>
+
+        <div class="alert alert-success d-flex  alert-dismissable d-flex" role="alert" data-v-notification-success="">
+
+          <div class="icon align-middle me-2">
+            <i class="align-middle la la-2x lh-1 la-check-circle"></i>
+          </div>
+
+          <div class="flex-grow-1 align-self-center align-middle" data-v-notification-text="">
+            You successfully read this important alert message.
+          </div>
+
+          <button type="button" class="btn-close align-middle" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">
+              <!-- <i class="la la-times"></i> -->
+            </span>
+          </button>
+        </div>
+
+        <div class="alert alert-primary d-flex alert-dismissable d-flex" role="alert" data-v-notification-info="">
+
+          <div class="icon align-middle me-2">
+            <i class="align-middle la la-2x lh-1  la-info-circle"></i>
+          </div>
+
+          <div class="flex-grow-1 align-self-center" data-v-notification-text="">
+            You successfully read this important alert message.
+          </div>
+
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">
+              <!-- <i class="la la-times"></i> -->
+            </span>
+          </button>
+        </div>
+
+      </div>
+
+      <!------------->
+
+      <div data-if-not="order.id_order">
+
+        <div class="container" data-v-if-not="this.global.user_id">
+
+          
+
+
+        <div>create by @{{room.owner.name}}</div>
+        <form onsubmit ="return false" action="" method="post" enctype="multipart/form-data"  class = "needs-validation" >
+          <div class="container">
+            <div class="row">
+
+              <div class="col-12 ">
+                <div class="card" style="--bs-card-spacer-y: 1.5rem; --bs-card-spacer-x: 1.5rem; ">
+                  <div class="card-body">
+                    <div class="row" data-v-if-not="this.global.owner_id">
+                    
+                        <input type="hidden" id="owner_id" name="owner_id" data-v-csrf="{{user.id}}" value = "{{user.id}}">
+                        <input type="hidden" id="id" name="id" data-v-csrf="{{room.id}}" value = "{{room.id}}">
+                    
+                        <div class="mb-3 col-12 mb-3" id="room_title_group">
+                            <label class="col-form-label" for="room_title"><strong>房间招牌</strong><span class="text-danger text-small">*</span></label>
+                            <div class="text-muted" style="font-size: small;">这是房间的标题，会显示在card中。</div>
+                            <input type="text" class="form-control" id="title" name="title"  minlength="3" maxlength="16" value="{{room.title}}" required {{disable}}/>
+                            <div class="valid-feedback">
+                               招牌要响亮好记!
+                              </div>
+                        </div>
+                        <div class="mb-3 col-12 mb-3" id="talking_group">
+                            <label class="col-form-label" for="talking"><strong>讨论主题</strong> <span class="text-danger text-small">*</span>
+                            </label>
+                            <div class="text-muted" style="font-size: small;">这是讨论的主题，比如用AI赚钱，孩子教育，读书等等。</div>
+                            <input type="text" class="form-control" id="talking" name="talking"  minlength="3" maxlength="32"  value="{{room.talking}}"
+                                required {{disable}}/>
+                        </div>
+                    
+                        <div class="mb-3 col-6" id="bot_name_group">
+                            <label class="col-form-label" for="bot_name"><strong>机器人名字</strong><span class="text-danger text-small">*</span>
+                            </label>
+                            <div class="text-muted" style="font-size: small;">聊天中机器人的称呼。</div>
+                            <input type="text" class="form-control" id="bot_name" name="bot_name"  minlength="3" maxlength="16" value ="{{room.bot_name}}"
+                                required {{disable}}/>
+                        </div>
+
+                        <div class="form-group">
+                            <div><strong>头像🎨 </strong></div>
+
+                            <img src="{{room.avatar}}" id="botavator" alt="botavator" title="botavator" class="img-rounded"  style="height: 120px; width: 120px; border-radius: 50%; border: 5px solid white;">
+
+                            <div class="text-muted" style="font-size: small;">您可以选择图像作为机器人头像。</div>
+                            <div class="avatar-box">
+                                <!--button type="button" class="btn btn-primary">🎨 创建图像</button>
+                                <span style="margin: 0px 10px;">or</span-->
+                                <input name="avatar" id = "avatar" color="primary" type="file" class="form-control" 
+                                    style="display: inline; width: 100%;"  accept="image/png, image/jpeg, image/jpg" onchange = "showImg(this)"                                    
+                                    {{disable}}/>
+                                   
+                            </div>
+                        </div>
+                    
+                        <div class="mb-3 col-12 mb-3" id="hello_group">
+                            <label class="col-form-label" for="hello">打招呼 <span class="text-danger text-small">*</span>
+                            </label>
+                            <div class="text-muted" style="font-size: small;">见面第一句话。</div>
+                            <input type="text" class="form-control" id="hello" name="hello" minlength="3" maxlength="32" value = "{{room.hello}}"
+                                required {{disable}}/>
+                        </div>
+
+                        <div class="mb-3 col-12 mb-3" id="short_group">
+                            <label class="col-form-label" for="talking"><strong>简介</strong> <span class="text-danger text-small">*</span>
+                            </label>
+                            <div class="text-muted" style="font-size: small;">一句话简介</div>
+                            <input type="text" class="form-control" id="short" name="short"  minlength="3" maxlength="32" value = "{{room.short_script}}"
+                                required {{disable}}/> 
+                            
+                        </div>
+
+                        <div class="mb-3 col-12 mb-3" id="long_group">
+                            <label class="col-form-label" for="talking"><strong>详情</strong> <span class="text-danger text-small">*</span>
+                            </label>
+                            <div class="text-muted" style="font-size: small;">详细说明我们要做什么</div>
+                          
+                            <textarea name="long" id="long"  minlength="3" maxlength="128" cols="30" rows="5" class="form-control"  placeholder="Write your notes here..." {{disable}}>{{room.long_script}}</textarea>
+                        </div>
+                    
+                        <div class="col-12 mb-3">
+                            <label class="col-form-label" for="categories"><strong>类别</strong></span>
+                            </label>
+                            <div class=" text-muted" style="font-size: small;">选择几个相关标签或关键字。</div>
+                            <select class="selectpicker form-select" multiple id="categories" name="categories" value="{{room.categories}}" {{disable}}>
+                              <option value="cosplay">cosplay</option>
+                              <option value="service">service</option>
+                              <option value="book">book</option>
+                              <option value="invation">invation</option>
+                              <option value="search">search</option>
+                              <option value="write">write</option>
+                              <option value="code">code</option>
+                              <option value="coken">coken</option>
+                            </select>
+                          </div>
+
+
+
+                        <div class="form-group">
+                            <label for="visibility"><strong>可见性 </strong>
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" color="#138eed" class="mb-1"
+                                    height="20" width="20" xmlns="http://www.w3.org/2000/svg"
+                                    style="color: rgb(19, 142, 237); --darkreader-inline-color:#409ada; --darkreader-inline-stroke:currentColor;"
+                                    data-darkreader-inline-color="" data-darkreader-inline-stroke="">
+                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                    <path
+                                        d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z">
+                                    </path>
+                                </svg>
+                            </label>
+                            <div class=" text-muted" style="font-size: small;">谁可以与谁交谈？</div>
+                            <select  class="selectpicker form-select" id="visibility" name="visibility"  value="{{room.public.value}}" {{disable}}>
+                                <option value="public" class = "select">公开：任何人都可以聊天</option>
+                                <option value="private">私有：只有您可以聊天</option>
+                                <option value="linkable">非公开：任何人使用链接都可以聊天</option>
+                            </select>
+                        </div>
+                          
+                        
+
+
+
+
+
+                   
+
+<!----------------------------------------------------->
+                   
+<!----------<div class="accordion" id="accordionExample">-------------------------------------------->
+
+
+<div class="form-group ">
+  
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <label class="col-form-label" for="sound"><strong>语音</strong>(期待)</span>
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" >
+        <div class="accordion-body">
+          
+            <div class="text-muted" style="font-size: small;">为角色选择默认语音。</div>
+            <select class="selectpicker form-select" id="sound" name="sound" value="{{room.sound}}" {{disable}}>
+                <option value="cmale">child male</option>
+                <option value="cfamle">child famle</option>
+                <option value="girl">girl</option>
+                <option value="boy">boy</option>
+                <option value="lady">lady</option>
+                <option value="man">man</option>
+            </select>
+        
+        
+        
+        
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <label for="definiton"><strong> 定义</strong> (高级)</label>
+                
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample" >
+            <div class="accordion-body">
+                <div class="form-row mb-2 ">
+                    <div class="text-muted" style="font-size: small; margin-top: -10px;">定义角色的示例对话和信息
+                        <button type="submit" class="btn" style="margin-left: -10px; margin-bottom: 5px;"  data-bs-toggle ="modal" data-bs-target="#qadialog">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="24"
+                                width="24" xmlns="http://www.w3.org/2000/svg" data-darkreader-inline-stroke=""
+                                style="--darkreader-inline-stroke:currentColor;">
+                                <path fill="none" d="M0 0h24v24H0V0z"></path>
+                                <path
+                                    d="M11 7h2v2h-2V7zm0 4h2v6h-2v-6zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z">
+                                </path>
+                            </svg></button>
+                    </div>
+                    <div>
+                        <div class="row mb-0">
+                            <div class="col">
+                                <div class="row mb-2 px-2 justify-content-left">
+                                    <div class="col-auto p-1">
+                                        <button type="button" class="btn p-1 px-2 border" {{disable}}>
+                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                viewBox="0 0 24 24" height="20" width="20"
+                                                xmlns="http://www.w3.org/2000/svg" data-darkreader-inline-stroke=""
+                                                style="--darkreader-inline-stroke:currentColor;">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                                            </svg>插入示例聊天</button>
+                                    </div>
+                                    <div class="col-auto p-1">
+                                        <button type="button" class="btn p-1 px-2 border" {{disable}}>
+                                            <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                viewBox="0 0 24 24" height="20" width="20"
+                                                xmlns="http://www.w3.org/2000/svg" data-darkreader-inline-stroke=""
+                                                style="--darkreader-inline-stroke:currentColor;">
+                                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
+                                            </svg>插入示例消息
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-muted"><span class="">0</span>/3200 characters,</span>
+                        <span class="text-muted"> recognized 0 example messages</span>
+                        <textarea class="form-control" id="definition" name="definition" rows="15"  
+                            maxlength="3200" {{disable}}>{{room.definition}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!------------------------------------------------------------------------------------------>
+         
+        <!-- Modal -->
+        <div class="modal fade" id="qadialog" tabindex="-1" role="dailog" aria-labelledby="loadingModal" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" ><strong> 定义</strong> (高级)提示</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                <div>
+                
+                  <div class="row">
+                      <div class="col">
+                          <div class="info-narrative">定义角色很简单，但在尝试优化体验时，请留意我们提供的一些提示。</div>
+                          <div class="info-text pt-3">You can use the placeholders {{user.name}} and {{room.bot_name}} as placeholders</div>
+                          <div class="info-example">{{user.name}}: What's your favorite game? <br>{{char}}: Hi {{user.name}}! I've been
+                              playing a lot of Zelda: Breath of the Wild.</div>
+                          <div class="info-text pt-3">您还可以在示例中介绍更多人</div>
+                          <div class="info-example">{{user.name}}: You two will be playing a game together<br>{{room.bot_name}}: Ok, what
+                              are the rules?<br>narrator: First, one of you will think of a word</div>
+                          <div class="info-text pt-3">您可以在角色中包含图像生成。</div>
+                          <div class="info-example">{{room.bot_name}}: *dark underground cave* You look around the cave.<br>{{user.name}}: I
+                              run away!<br>{{room.bot_name}}: *large bear with big teeth* A bear runs after you!</div>
+                          <div class="info-text pt-3">Keep in mind words said by {{user.name}} in examples will be as if the user
+                              has said those things, even though they won't appear in the chat. You can also use something
+                              like somebody or actual names in definitions to provide examples.</div>
+                          <div class="info-example">Bob: I'm from Maine, tell me about my state<br>{{room.bot_name}}: Maine is great
+                              place in the fall!</div>
+                          <div class="info-narrative pt-3">重要的是，不断尝试在定义和与角色交谈之间循环！</div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col">
+  
+                      </div>
+                  </div>
+              </div>
+
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h2 class="accordion-header" id="headingOne">
+<!--------------------------------------------------------------------------------->
+  
+      
+      
+   
+
+
+
+<!----------------------------------------------------->
+                      <!-- Modal -->
+                      <div class="modal fade" id="loadingModal" tabindex="-1" role="dailog" aria-labelledby="loadingModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" >Create Room</h5>
+                              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <h3 id="message"> 正在上传 </h3>
+                              <div class="d-flex justify-content-center">
+                                <div class="spinner-border" role="status" c>
+                                  <span class="sr-only">Loading...</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+<!----------------------------------------------------------->
+
+                    <button type="submit" id="submit" href="" class="btn btn-primary w-100" 
+                        data-bs-toggle ="modal" data-bs-target="#loadingModal"
+                        data-v-url="#"  {{disable}}>
+                            Place order <i class="la la-arrow-right"></i>
+                    </button>
+<!----------------------------------------------------->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+
+
+
+{% endblock %}
+
+
+
+{% block  script %}  
+{{  super()  }}  
+
+<script  type="text/javascript">
+  
+function showImg(input) {
+        var file = $('#avatar')[0].files[0];
+        var url = window.URL.createObjectURL(file);
+        $('#botavator')[0].src=url;
+};
+
+$(function () {
+    //还原数据显示。选择框真麻烦。尤其多选框。
+    $("#visibility").val('{{room.public.value}}') ;
+    $("#sound").val('{{room.sound}}')  ;
+
+    $("#categories").val('{{room.categories}}');
+    var arr = '{{room.categories}}'.split(',');
+    var ops = $("#categories option")
+    for (var op in ops) {
+        for (i =0 ;i< arr.length;i++)
+        if( ops[op].value == arr[i] )
+                ops[op].selected = true;
+
+    }
+
+    //绑定submit消息
+    $('#submit').click(upLoad); 
+    
+});
+
+
+
+function editRoom(avatarurl) {
+      //在登录中使用cookie方法保存token
+      let data = {
+        
+        title:$("#title").val(),
+        sys_prompt:$("#definition").val(),
+
+        short_script:$("#short").val(),
+        long_script:$("#long").val(),
+
+        avatar :$('#botavator')[0].src,//$('#botavator')[0].src
+        talking :$("#talking").val(),//str  = "怎样才能占领整个银河系"  #讨论主题
+        bot_name :$("#bot_name").val(),//str = "AI勇士" #机器人名字
+        hello :$("#hello").val(),//str    = "年轻人，来加入我们，为了世界和平" #见面第一句话
+        categories:$("#categories").val().toString(),//str= "test" # 类别
+
+        sound :$("#sound").val(),//str    = "暂无" # 角色默认语音
+        definition :$("#definition").val(),//str = "你是一个AI战士，你的任务是占领整个银河系。我是兵团指挥官，见到我要喊‘为了和平’" #高级定义
+
+        public :$("#visibility").val(),
+        owner_id:$("#owner_id").val(),
+        id:$("#id").val(),
+        
+      }
+      $.ajax({
+        type: "post", // 请求方式
+        contentType: "application/json;charset=utf-8",
+        data:JSON.stringify(data),
+        url: "/api/roomedit",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
+        dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+        success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
+          if (res.statu == "ok") {
+             $("#message").text("保存成功");
+           
+              setTimeout(function(){
+                $("#loadingModal").modal('toggle'); 
+                //$("#message").dissmis();
+                //location.href="/room/edit/"+res.room.id;
+
+              },1000)
+          //cookieHandler.set("accountId", res.data.user.accountId)
+          //cookieHandler.set("cellPhone", res.data.user.cellPhone)
+          //$(location).prop('href', './Account.html')
+           } else{
+              $("#message").text("Is there some input error");
+           }
+        },
+
+        error: function (data, status, e) {
+          $("#message").text(status+"|"+e+" | "+JSON.stringify(data)+"check your input");
+          //alert(JSON.stringify(data.error), 0);
+        }
+
+      });
+}
+
+function upLoad(){
+
+   //如果没有改变头像，直接开始传值，否则先传头像文件。
+    var file = $('#avatar')[0].files[0];
+    if (typeof(file)=="undefined"){
+        editRoom($('#botavator')[0].src);
+        return 
+    }
+
+    if(file.size/1000 > 50 ){
+      $("#message").text("图像太大");
+      return
+
+    }
+
+    var formdata = new FormData();
+
+    formdata.append('file',file);
+
+    $.ajax({
+        type: "post", // 请求方式
+        contentType: false,
+        cache:false,
+        processData:false,
+        data:formdata,
+        url: "/uploadfile",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
+        dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+        success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
+          if (res.hostname ) {
+            $("#message").text("上传完成，开始创建");
+           
+            $('#botavator')[0].src=res.hostname;
+            editRoom(res.hostname);
+
+           } else{
+              $("#message").text(res.error);
+           }
+        },
+
+        error: function (data, status, e) {
+          $("#message").text("find error ,try again");
+          //alert(JSON.stringify(data.error), 0);
+        }
+
+    })
+
+}
+
+</script>
+
+
+{% endblock %}

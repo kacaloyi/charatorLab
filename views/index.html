@@ -1,0 +1,134 @@
+
+
+{% extends "base.html" %}       {# 继承base.html文件#}
+ 
+{% block title %}首页{% endblock %}   {#  定制title部分的内容#}
+
+{% block content %}
+{{  super()  }}  
+
+
+
+<!--
+<div class="flex items-center gap-x-6 bg-blue-600 py-2.5 px-6 sm:px-3.5 sm:before:flex-1">
+    <div class="text-sm leading-6 text-white">
+        <div>🙇 用户过多，无法负担 OpenAI 成本，免费使用暂时关闭。付费用户不受影响。</div>
+    </div>
+    <div class="flex flex-1 justify-end"></div>
+</div>
+
+<main>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-20 pb-12 text-center lg:pt-32">
+        <h1 class="font-display mx-auto max-w-4xl text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">Create
+            <span class="relative whitespace-nowrap text-blue-600"><svg aria-hidden="true" viewBox="0 0 418 42"
+                    class="absolute top-2/3 left-0 h-[0.58em] w-full fill-blue-300/70" preserveAspectRatio="none">
+                    <path
+                        d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z">
+                    </path>
+                </svg><span class="relative text-4xl sm:text-7xl">ChatGPT Application</span></span> in seconds</h1>
+        <p class="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">Use a wide range of ChatGPT applications
+            or create your own in seconds.</p>
+        <div class="mt-10 flex justify-center gap-x-6 "><a
+                class="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600 relative"
+                href="/room/0/edit"><span class="text-4xl horizontal-bounce_bounce__ZbQA3 absolute -left-12">👉🏻</span>
+                <div class="flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-6 w-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="mr-0.5 whitespace-nowrap">Create Application</span>
+                </div>
+            </a></div>
+    </div>
+</main> -->
+<header class="hero-3 overlay" title="hero-3">
+  <div class="container">
+  <div>
+    <div class="row align-items-center justify-content-center text-center">
+      <div class="col-lg-12">
+        <h1 class="heading text-white mb-3 aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">AI Guide Laboratory </h1>
+        <h3 class="text-white aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">Powerful and easy to train a useful AI <br> 
+          Teach AI bot  make service for you. </h3>
+
+        <div class="buttons aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+          <a href="/room/create/0" class="btn btn-primary text-white me-4">
+            <span class="text-4xl horizontal-bounce_bounce__ZbQA3 absolute -left-12">👉🏻</span>
+            
+            
+            Create AI now</a>
+         
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="separator bottom">
+
+
+  <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 41" width="100%" preserveAspectRatio="none"><defs><style>
+        .cls-1 {
+          fill: #fff;
+        }
+      </style></defs><title>rough-edges-bottom</title>
+      <path class="cls-1" d="M0,185l125-26,33,17,58-12s54,19,55,19,50-11,50-11l56,6,60-8,63,15v15H0Z" transform="translate(0 -159)"></path>
+    </svg>
+  </div>
+
+</header>
+
+<section class="testimonials-1 bg-alternate" title="testimonials-1"  spellcheckker="false">
+    <div class="container">
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-7 text-center">
+          <h2 class="mb-1">Some of our AI room</h2>
+          <h5 class="lead text-muted mb-3">Discover the Room  How Amazing It Was</h5>
+        </div>
+      </div>
+
+      <div class="row text-center">
+
+        {% for room in rooms %}
+        <div class="col-xl-3 col-sm-6 mb-5">
+          <div class="bg-white rounded shadow py-5 px-4">
+            <a href="/room/{{room.id}}">
+            <img src={{ room.avatar }} alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow">
+            </a>
+            <!--svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="#0011ff">
+              <path d="M15.9082 12.3714H20.5982C20.5182 17.0414 19.5982 17.8114 16.7282 19.5114C16.3982 19.7114 16.2882 20.1314 16.4882 20.4714C16.6882 20.8014 17.1082 20.9114 17.4482 20.7114C20.8282 18.7114 22.0082 17.4914 22.0082 11.6714V6.28141C22.0082 4.57141 20.6182 3.19141 18.9182 3.19141H15.9182C14.1582 3.19141 12.8282 4.52141 12.8282 6.28141V9.28141C12.8182 11.0414 14.1482 12.3714 15.9082 12.3714Z"></path>
+              <path d="M5.09 12.3714H9.78C9.7 17.0414 8.78 17.8114 5.91 19.5114C5.58 19.7114 5.47 20.1314 5.67 20.4714C5.87 20.8014 6.29 20.9114 6.63 20.7114C10.01 18.7114 11.19 17.4914 11.19 11.6714V6.28141C11.19 4.57141 9.8 3.19141 8.1 3.19141H5.1C3.33 3.19141 2 4.52141 2 6.28141V9.28141C2 11.0414 3.33 12.3714 5.09 12.3714Z"></path>
+            </svg-->
+
+            <p class="mt-3">{{ room.short_script }}</p>
+            <p class="mt-3">{{ room.long_script }}</p>       
+
+            <h5 class="mb-0">{{ room.title|title }}</h5>
+
+
+           
+            <div class="row">
+              <div class="col-sm-4"><span class="small  text-muted">@{{ room.owner.name }}.</span></div>
+              <div class="col-sm-4 col-5"></div>
+              <div class="col-sm-4">
+                  
+                  <a href="/room/{{room.id}}"  class="btn "  style="border: 1px;">enter</a>
+              </div>
+          </div>
+
+          </div>
+        </div>
+        {% endfor %}
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+

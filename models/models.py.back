@@ -1,0 +1,61 @@
+#已经废弃
+
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
+# 1、从database.py导入Base类
+from models.db import Base
+
+#房间。每个房间有自己的定义。有自己的标题，配图和描述。
+class Room(Base):
+    #表名
+    __tablename__  ="room"
+    id = Column(Integer,primary_key=True,index=True) #房间号
+    typekey = Column(Integer)       #房间类型
+    prompte = Column(String(255))   #房间的定义
+    scriptes = Column(String(255))  #房间的描述
+    title    = Column(String(32))   #房间标题
+    wallpaper= Column(String(255))  #房间的配图
+                                    #后面还要加上对应的配文档或者功能插件
+
+#对话都是在房间里，用户发出的。
+#所以每一条都有用户id，来去的消息，还有对应的房间号
+class ChatMessage(Base):
+    # 表名
+    __tablename__ = "chatmsg"
+    id=Column(Integer,primary_key=True,index=True)
+    userid = Column(Integer)
+    roomid = Column(Integer)
+    message = Column(String(255))
+
+
+
+# User继承Base类
+class User(Base):
+    # 表名
+    __tablename__ = "users"
+
+    # 2、创建模型属性/列，使用Column来表示 SQLAlchemy 中的默认值。
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True)
+    password = Column(String)
+    is_active = Column(Boolean, default=True)
+
+    # 3、创建关系
+    # 当访问 user 中的属性items时，如 中my_user.items，它将有一个ItemSQLAlchemy 模型列表（来自items表），这些模型具有指向users表中此记录的外键
+    # 当您访问my_user.items时，SQLAlchemy 实际上会从items表中的获取一批记录并在此处填充进去。
+    # 同样，当访问 Item中的属性owner时，它将包含表中的UserSQLAlchemy 模型users。使用owner_id属性/列及其外键来了解要从users表中获取哪条记录。
+    items = relationship("Item", back_populates="owner")
+
+# Item继承Base类
+class Item(Base):
+    __tablename__ = "items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, index=True)
+    description = Column(String, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+
+    owner = relationship("User", back_populates="items")
+
+    #items = relationship("Item", back_populates="owner") ?

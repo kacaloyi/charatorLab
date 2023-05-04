@@ -1,0 +1,6 @@
+sqlalchemy
+sqlalchemy_fields
+fastapi
+uvicorn
+sqladmin
+Authlib

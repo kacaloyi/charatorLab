@@ -1,0 +1,10 @@
+{
+    "g": {
+      "hi": "hello world",
+      "test": "test 1"
+    },
+    "user": {
+      "hi": "user:hello world",
+      "user {id} is deleted": "user {id} is deleted"
+    }
+  }

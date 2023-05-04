@@ -1,0 +1,69 @@
+
+
+configs = {
+        "load_path": "/locales", # 指定在 /locales 下找对应的翻译 json文件
+        "default_module": "global", # 指定默认的全局模块，你可以为比如用户模块，订单模块单独设置翻译，如果不指定 module 则会去全局模块查找。
+}
+
+#实际上传地址(本地地址)，对应映射的URL(网络地址)。
+UPLOAD_FOLDER = "D:/workspace/py/pyServerApp/static/img/upload"
+HOST_FOLDER = "/static/img/upload"
+
+SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 120
+
+TWITTER_CLIENT_ID = ""
+TWITTER_CLIENT_SECRET = ""
+
+FACEBOOK_CLIENT_ID = ""
+FACEBOOK_CLIENT_SECRET = ""
+
+GOOGLE_CLIENT_ID = ""
+GOOGLE_CLIENT_SECRET = ""
+
+GITHUB_CLIENT_ID = ""
+GITHUB_CLIENT_SECRET = ""
+
+DROPBOX_CLIENT_ID = ""
+DROPBOX_CLIENT_SECRET = ""
+
+REDDIT_CLIENT_ID = ""
+REDDIT_CLIENT_SECRET = ""
+
+GITLAB_CLIENT_ID = ""
+GITLAB_CLIENT_SECRET = ""
+
+SLACK_CLIENT_ID = ""
+SLACK_CLIENT_SECRET = ""
+
+DISCORD_CLIENT_ID = ""
+DISCORD_CLIENT_SECRET = ""
+
+STACKOVERFLOW_CLIENT_ID = ""
+STACKOVERFLOW_CLIENT_SECRET = ""
+# STACKOVERFLOW_CLIENT_KWARGS={
+#     'api_key': '',    # required
+#     'api_filter': ''  # optional
+# }
+
+BITBUCKET_CLIENT_ID = ""
+BITBUCKET_CLIENT_SECRET = ""
+
+STRAVA_CLIENT_ID = ""
+STRAVA_CLIENT_SECRET = ""
+
+SPOTIFY_CLIENT_ID = ""
+SPOTIFY_CLIENT_SECRET = ""
+
+YANDEX_CLIENT_ID = ""
+YANDEX_CLIENT_SECRET = ""
+
+TWITCH_CLIENT_ID = ""
+TWITCH_CLIENT_SECRET = ""
+
+VK_CLIENT_ID = ""
+VK_CLIENT_SECRET = ""
+
+BATTLENET_CLIENT_ID = ""
+BATTLENET_CLIENT_SECRET = ""

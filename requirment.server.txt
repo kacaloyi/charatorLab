@@ -1,0 +1,10 @@
+fastapi
+jinja2
+aiofiles
+python-multipart
+sqlalchemy 
+pydantic
+typing
+pymysql
+easy_i18n
+loguru

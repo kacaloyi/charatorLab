@@ -1,0 +1,84 @@
+{% extends "base.html" %}       {# 继承base.html文件#}
+ 
+{% block title %}常见问题{% endblock %}   {#  定制title部分的内容#}
+
+{% block content %}
+{{  super()  }}  
+
+<!-- Required dependencies 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">-->
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-12 p-4 m-4">
+        <h1 class=" text-lg-center  font-weight-normal text-uppercase text-decoration-underline text-monospace  ">Comming soon!</h1>
+        <br>
+
+        <div id="markdown-content"></div>
+
+       
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+{% endblock %}
+
+
+{% block  script %}  
+{{  super()  }} 
+<script  type="text/javascript" src="https://cdn.jsdelivr.net/npm/showdown@1.9.1/dist/showdown.js"></script> 
+<script  type="text/javascript">
+  // Markdown字符串
+
+    $(function () {
+      var markdownString = ""
+  +"#标题一 \n" 
+  
+  +"这是一段文本。这是一段文本。这是一段文本。\n" 
+  
+  +" 这是引用文本。这是另一段文本。  >\n" 
+  
+  +"##标题二  \n" 
+  
+  +"这是一张图片：\n" 
+  +"\r\n"
+  
+  +"![图片描述](https://via.placeholder.com/350x150)  \n" 
+ 
+  
+  +"这是一份表格：(两个空格换行)  \n"
+  +"\n"
+ 
+  +"|  表头   | 表头  |  \n" 
+  +"|  :----:  | :----:  |  \n" 
+  +"| 内容一 | 内容二 |  \n" 
+  +"| 内容三 | 内容四 |  \n" 
+  ;
+
+
+      // 使用Showdown.js解析Markdown字符串
+      const converter = new showdown.Converter();
+      var html = converter.makeHtml(markdownString);
+
+      // 将HTML插入到页面
+      var markdownContent = document.querySelector('#markdown-content');
+      markdownContent.innerHTML = html;
+
+    });
+
+
+
+
+  </script>
+
+
+{% endblock %}

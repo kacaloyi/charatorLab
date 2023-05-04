@@ -1,0 +1,465 @@
+{% extends "base.html" %}       {# 继承base.html文件#}
+ 
+{% block title %}个人空间{% endblock %}   {#  定制title部分的内容#}
+
+{% block content %}
+{{  super()  }}  
+
+
+
+<div class="container">
+    <!--头像-->
+            <div class="container user-online-thumb">
+                
+                <div class="d-flex justify-content-center h-100">
+                    <div class="image_outer_container" data-bs-toggle="modal" data-bs-target="#avatorModal">
+                        <div class="green_icon"></div>
+                        <div class="image_inner_container">                            
+                            <img id="avator"  src="{{ user.avatar}}">                            
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+                <div class="d-flex justify-content-center">@{{user.name}} </div>
+                <style>
+                    .container.user-online-thumb {
+                        height: 100%;
+                        align-content: center;
+                    }
+            
+                    .user-online-thumb .image_outer_container {
+                        margin-top: auto;
+                        margin-bottom: auto;
+                        border-radius: 50%;
+                        position: relative;
+                    }
+            
+                    .user-online-thumb .image_inner_container {
+                        border-radius: 50%;
+                        padding: 5px;
+                        background: #833ab4;
+                        background: -webkit-linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);
+                        background: linear-gradient(to bottom, #fcb045, #fd1d1d, #833ab4);
+                    }
+            
+                    .user-online-thumb .image_inner_container img {
+                        height: 120px;
+                        width: 120px;
+                        border-radius: 50%;
+                        border: 5px solid white;
+                    }
+            
+                    .user-online-thumb .image_outer_container .green_icon {
+                        background-color: #4cd137;
+                        position: absolute;
+                        right: 30px;
+                        bottom: 5px;
+                        height: 22px;
+                        width: 22px;
+                        border: 4px solid white;
+                        border-radius: 50%;
+                    }
+                </style>
+            </div>
+        </div>  
+
+    <div data-component-tabs="">
+		<div class="shadow">
+			<nav>
+			  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+				<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">me</button>
+				<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false" tabindex="-1">myroom</button>
+				<button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false" tabindex="-1">myhistory</button>
+				<button class="nav-link" id="nav-disabled-tab" data-bs-toggle="tab" data-bs-target="#nav-disabled" type="button" role="tab" aria-controls="nav-disabled" aria-selected="false" disabled="" tabindex="-1">Disabled</button>
+			  </div>
+			</nav>
+
+			<div class="tab-content" id="nav-tabContent">
+
+                <!------------------------->
+                <div class="tab-pane active show" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                    <div class ="card">
+                        <div class ="card-body">
+                      <h3 class="card-title m-3">基本情况</h3>
+                      
+                        <div><label class ="card-subtitle mb-2 text-muted ">UserName:</label><span class ="card-text m-3">{{user.name}}</span></div>
+                        <div><label class ="card-subtitle mb-2 text-muted ">PassWord:</label><span  class ="card-text  m-3">......</span></div>
+                        <div><label class ="card-subtitle mb-2 text-muted ">Phone:</label><span class ="card-text  m-3">{{user.phone}}</span></div>
+                        <div><label class ="card-subtitle mb-2 text-muted ">Email:</label><span class ="card-text  m-3">{{user.email}}</span></div>
+                        <div><label class ="card-subtitle mb-2 text-muted ">Tokens:</label><span class ="card-text  m-3">{{user.egg}}</span></div>
+                                            
+                      </div>
+                      <div class="card-body">
+                        <div class="btn-group float-end" role="group" aria-label="person operation">
+                            <button type="button" id="logout" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#logoutModal">logout</button>
+                            <button type="button" id="resetpass" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#resetModal">resetpassword</button>
+                            <button type="button" class="btn btn-outline-disabled" disabled>nothing</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+            <!------------------------->
+
+			  <div class="tab-pane " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                <a  href="/room/create/0" >
+				    <button type ="button"class="btn btn-outline-primary m-3" >Create new room</button>
+                </a>
+               
+                <div class ="card">  </div>    
+                
+                
+                
+                {% for room in user.my_room %}
+                    
+                
+                <div class="m-2 profile-row">
+                    <div class="p-0 m-1 mb-3">
+                        <a class="col-10" role="button" href="/room/{{room.id}}"
+                            style="color: inherit; text-decoration: inherit; --darkreader-inline-color: inherit;"
+                            data-darkreader-inline-color="">
+                            <div class="row justify-content-left">
+                                <div class="col">
+                                    <div class="row justify-content-left">
+                                        <div class="col-auto align-items-center justify-content-center">
+                                            <div class=" sb-avatar sb-avatar--src"
+                                                style="display: inline-block; vertical-align: middle; width: 55px; height: 55px; border-radius: 100%; font-family: Helvetica, Arial, sans-serif; font-weight: 600;">
+                                                <img class=" sb-avatar__image" width="55px" height="55px"
+                                                    src="{{room.avatar}}"
+                                                    alt={{ room.title|title }} title={{ room.title|title }}
+                                                    style="max-width: 100%; width: 55px; height: 55px; border-radius: 100%;">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="row align-items-center " style="font-size: 16px; font-weight: 500;">
+                                                <span class="p-0">{{ room.title|title }}&nbsp;</span>
+                                            </div>
+                                            <div class="row"
+                                                style="font-size: 14px; color: rgb(40, 40, 40); --darkreader-inline-color:#cec7bd;"
+                                                data-darkreader-inline-color="">
+                                                <div class="row ">{{ room.short_script }}</div>
+                                            </div>
+                                            <div>
+                                                <div class="row" style="font-size: 12px;">
+                                                    <span>
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 512 512" height="1em" width="1em"
+                                                            xmlns="http://www.w3.org/2000/svg" data-darkreader-inline-fill=""
+                                                            data-darkreader-inline-stroke=""
+                                                            style="--darkreader-inline-fill:currentColor; --darkreader-inline-stroke:currentColor;">
+                                                            <path fill="none" stroke-linecap="round" stroke-miterlimit="10"
+                                                                stroke-width="32"
+                                                                d="M431 320.6c-1-3.6 1.2-8.6 3.3-12.2a33.68 33.68 0 012.1-3.1A162 162 0 00464 215c.3-92.2-77.5-167-173.7-167-83.9 0-153.9 57.1-170.3 132.9a160.7 160.7 0 00-3.7 34.2c0 92.3 74.8 169.1 171 169.1 15.3 0 35.9-4.6 47.2-7.7s22.5-7.2 25.4-8.3a26.44 26.44 0 019.3-1.7 26 26 0 0110.1 2l56.7 20.1a13.52 13.52 0 003.9 1 8 8 0 008-8 12.85 12.85 0 00-.5-2.7z">
+                                                            </path>
+                                                            <path fill="none" stroke-linecap="round" stroke-miterlimit="10"
+                                                                stroke-width="32"
+                                                                d="M66.46 232a146.23 146.23 0 006.39 152.67c2.31 3.49 3.61 6.19 3.21 8s-11.93 61.87-11.93 61.87a8 8 0 002.71 7.68A8.17 8.17 0 0072 464a7.26 7.26 0 002.91-.6l56.21-22a15.7 15.7 0 0112 .2c18.94 7.38 39.88 12 60.83 12A159.21 159.21 0 00284 432.11">
+                                                            </path>
+                                                        </svg>&nbsp;0
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-auto p-0 m-0">
+                                    <a class="btn p-2 m-0 border" role="button"
+                                        href="/room/edit/{{room.id}}">
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="28"
+                                            width="28" xmlns="http://www.w3.org/2000/svg" data-darkreader-inline-fill=""
+                                            data-darkreader-inline-stroke=""
+                                            style="--darkreader-inline-fill:currentColor; --darkreader-inline-stroke:currentColor;">
+                                            <path fill="none" d="M0 0h24v24H0V0z"></path>
+                                            <path
+                                                d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z">
+                                            </path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            
+                {% endfor %}
+
+            </div>
+            
+<!------------------>
+			  
+			
+			  <div class="tab-pane" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+				我去过的房间
+			  </div>
+			  <div class="tab-pane" id="nav-disabled" role="tabpanel" aria-labelledby="nav-disabled-tab" tabindex="0">
+				消费记录
+			  </div>
+			</div>
+		</div>
+	</div>
+
+
+<!-- Modal avatorModal-->
+<div class="modal fade" id="avatorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="logoutModalLabel">更换头像</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"> 
+            
+            <div class="avatar-box">
+                <!--button type="button" class="btn btn-primary">🎨 创建图像</button>
+                <span style="margin: 0px 10px;">or</span-->
+                <label for = "avatarinput"   > 🎨 选择头像 </label>
+                <input name="avatar" id = "avatarinput" color="primary" type="file" class="form-control" 
+                    style="display: inline; width: 100%;"  accept="image/png, image/jpeg, image/jpg"                                   
+                    />
+                   
+            </div>
+          
+        
+            <div class ="text-danger" id = "messageavator"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" id="avatorsubmit" class="btn btn-primary">上传</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- Modal logoutModal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="logoutModalLabel">Logout</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+               登出系统之后，下次回来时，你将需要重新登录。
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" id="logoutsubmit" class="btn btn-primary">logout</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- Modal resetModal-->
+<div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="logoutModalLabel">Reset Password</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form class="row g-3 needs-validation" novalidate>
+
+                <div class="mb-3">
+                  <label for="oldPassword" class="form-label">原来的密码</label>
+                  <input type="password" class="form-control" id="oldPassword" placeholder="输入原来的密码." required>
+                
+                </div>
+                <div class="mb-3">
+                    <label for="newPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="newPassword1" placeholder="现在的密码" required>
+                 
+                </div>
+
+                <div class="mb-3">
+                    <label for="newPassword2" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="newPassword2" placeholder="再次输入现在的密码.两次输入必须一致" required>
+
+                </div>
+
+                <div class ="text-danger" id = "message"></div>
+              </form>
+        </div>
+        
+        <div class="modal-footer">
+          
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" id="resetsubmit" class="btn btn-primary">submit</button>
+        </div>
+      </div>
+    </div>
+</div>
+ 
+
+{% endblock %}
+
+
+{% block  script %}  
+{{  super()  }} 
+<script  type="text/javascript">
+    
+$(function () {
+    
+        $("#resetsubmit").click(resetpassword); 
+        $("#logoutsubmit").click(logout);
+        $("#avatorsubmit").click(sendavator)
+        
+});
+
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+
+function logout(){
+    cookieHandler.set("token",null);
+           setTimeout(function(){
+              location.href="/"
+
+            },1000)
+
+}
+
+
+function sendavator(){
+
+    //如果没有改变头像，直接开始传值，否则先传头像文件。
+    var file = $('#avatarinput')[0].files[0];
+    if (typeof(file)=="undefined"){
+        $("#messageavator").text("头像未指定");
+        return 
+    }
+
+    if(file.size/1000 > 50 ){
+      $("#messageavator").text("图像太大");
+      return
+
+    }
+
+    var formdata = new FormData();
+
+    formdata.append('file',file);
+
+    $.ajax({
+        type: "post", // 请求方式
+        contentType: false,
+        cache:false,
+        processData:false,
+        data:formdata,
+        url: "/uploadfile",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
+        dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+        success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
+          if (res.hostname ) {
+            $("#messageavator").text("上传完成");
+           
+            $('#avator')[0].src=res.hostname;
+           
+            resetavator();
+
+           } else{
+              $("#messageavator").text(res.error);
+           }
+        },
+
+        error: function (data, status, e) {
+          $("#messageavator").text("find error ,try again");
+          
+        }
+
+    })
+
+}
+
+function resetavator(){
+
+    let data = {
+        "avator": $("#avator")[[0]].src,
+      }
+
+    $.ajax({
+        type: "post", // 请求方式
+        contentType: "application/json;charset=utf-8",
+        data:JSON.stringify(data),
+        url: "/auth/resetavator",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
+        dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+        success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
+          if (res.statu == "ok") {
+            $("#messageavator").text(res.info);
+
+            setTimeout(function(){
+              $("#avatorModal").modal('toggle'); 
+            },1000)
+            
+
+           }
+        },
+
+        error: function (data, status, e) {
+          $("#messageavator").text("find error ,try again");
+          //alert(JSON.stringify(data.error), 0);
+        }
+
+      });
+
+}
+
+
+function resetpassword(){
+
+    let data = {
+        "oldPassword": $("#oldPassword").val(),
+        //loginType: $('#checkbox1').is(':checked') ? "1" : "0",
+        "newPassword1": $("#newPassword1").val(),
+        "newPassword2":$("#newPassword2").val(),
+      }
+      $.ajax({
+        type: "post", // 请求方式
+        contentType: "application/json;charset=utf-8",
+        data:JSON.stringify(data),
+        url: "/auth/resetpass",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
+        dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+        success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
+          if (res.statu == "ok") {
+            $("#message").text(res.info);
+
+            setTimeout(function(){
+            $("#resetModal").modal('toggle'); 
+            },1000);
+
+             // $("#message").text(res.info);
+           }
+        },
+
+        error: function (data, status, e) {
+          $("#message").text("find error ,try again");
+          //alert(JSON.stringify(data.error), 0);
+        }
+
+      });
+
+}
+
+
+
+</script>
+
+
+{% endblock %}
