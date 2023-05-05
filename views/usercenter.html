@@ -348,7 +348,7 @@ function sendavator(){
         return 
     }
 
-    if(file.size/1000 > 50 ){
+    if(file.size/1000 > 500 ){
       $("#messageavator").text("图像太大");
       return
 
@@ -444,7 +444,9 @@ function resetpassword(){
             $("#resetModal").modal('toggle'); 
             },1000);
 
-             // $("#message").text(res.info);
+             //
+           }else{
+            $("#message").text(res.info);
            }
         },
 

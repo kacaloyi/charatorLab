@@ -84,6 +84,7 @@ class ControlRoom:
 
         )
 
+
         session.add(data_room)
         session.commit()
         # 使用refresh来刷新您的数据库实例（以便它包含来自数据库的任何新数据，例如生成的 ID）。
@@ -101,30 +102,4 @@ class ControlRoom:
         return "ok"
 
 
-class  ControlChat:
-    #初始化的时候，建立与API的链接。断了重连？
 
-
-    def Chat(chatdata:dChartUser, user_id:int):
-        print (chatdata)
-        print (user_id)
-        #1 判断user是否合法，检查它egg是否还有
-        user  = session.query( User).filter(User.id == user_id).first()
-        #2 找到room，拼装prompty
-        nroom = session.query( Room).filter(Room.id ==chatdata.room_id).first()
-        #3 找到记忆的聊天记录，拼装prompty
-
-        #4 发送给API
-
-        #5 接受API返回信息，处理异常
-
-        #6 解析返回信息，
-
-        #7 处理消费
-
-        #8 处理历史记录
-
-        #9 拼装返回信息
-        
-    
-        return "ok"

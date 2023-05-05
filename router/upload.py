@@ -27,6 +27,9 @@ def allowed_file(filename):
 
 @router.post("/uploadfile/")
 async def create_upload_file(file: UploadFile = File(...)):
+    if (file.size/1000 )> 500  :
+        return {"error": "file is so big"}
+
     if file and allowed_file(file.filename):
         # 这个函数来自werkzeug.utils模块，用于安全处理文件名。它将文件名中的特殊字符替换为下划线，
         # 并删除文件名中的路径信息，以防止路径遍历攻击。

@@ -188,7 +188,7 @@
                     <div id="scrollBar"
                         style="height: 576px; overflow: auto; display: flex; flex-direction: column-reverse;">
                         <div class="infinite-scroll-component__outerdiv">
-                            <div class="infinite-scroll-component "
+                            <div class="infinite-scroll-component " id = "scrollview" name = "scrollview"
                                 style="height: auto; overflow: auto; display: flex; flex-direction: column-reverse;">
                                 <div class=""></div>
 
@@ -519,12 +519,13 @@
                         </div>
                         <div class="input-group me-3 my-0">
 
-                            <textarea id="user-input" class="bg-white form-control border-success shadow-sm rounded-2" rows="1"
+                            <input type="hidden" id="room_id" name="room_id" value="{{room.id}}"/>    
+                            <textarea id="message" class="bg-white form-control border-success shadow-sm rounded-2" rows="1"
                                 placeholder="Type a message"
                                 style="font-size: 11pt; padding-left: 4px; height: 36px;"></textarea>
 
 
-                            <button class="btn py-0" type="button" title="Submit Message">
+                            <button class="btn py-0" type="button" title="Submit Message" id="submit-message">
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24"
                                     height="25" width="25" xmlns="http://www.w3.org/2000/svg"
                                     style="color: rgb(60, 133, 246); --darkreader-inline-fill:currentColor; --darkreader-inline-stroke:currentColor; --darkreader-inline-color:#589ee0;"
@@ -609,41 +610,48 @@
 {% block  script %}  
 {{  super()  }}  
 
-<script>
-  /*  
-(function () {
-        var js = "window['__CF$cv$params']={r:'7b9c08d00e1010a9',m:'S1rZo83O5VI4nb2WQF.rxyXbBupUVyEA5i2JHvFxa8Q-1681811750-0-AQ6fBIsz1C4RQszTn6OelYhyCfLujmbsByCuWoDNpX1f',u:'/cdn-cgi/challenge-platform/h/b'};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/scripts/invisible.js',document.getElementsByTagName('head')[0].appendChild(_cpo);";
-        var _0xh = document.createElement('iframe'); 
-        _0xh.height = 1;
-         _0xh.width = 1; 
-         _0xh.style.position = 'absolute'; 
-         _0xh.style.top = 0; 
-         _0xh.style.left = 0;
-          _0xh.style.border = 'none'; 
-          _0xh.style.visibility = 'hidden'; 
-          document.body.appendChild(_0xh); 
-          function handler() { 
-            var _0xi = _0xh.contentDocument || _0xh.contentWindow.document; 
-            if (_0xi) { 
-                var _0xj = _0xi.createElement('script'); 
-                _0xj.nonce = ''; _0xj.innerHTML = js; 
-                _0xi.getElementsByTagName('head')[0].appendChild(_0xj);
-             } 
-            } 
-            if (document.readyState !== 'loading') 
-            { handler(); } 
-            else if (window.addEventListener) {
-                 document.addEventListener('DOMContentLoaded', handler); } 
-                 else { var prev = document.onreadystatechange || function () { }; 
-                 document.onreadystatechange = function (e) { 
-                    prev(e); if (document.readyState !== 'loading') { 
-                        document.onreadystatechange = prev; handler(); 
-                    } }; 
-                }
-    })();
 
-    */
+<script  type="text/javascript">
+
+$(function () {
+
+    $("#submit-message").click(chat); 
+
+});
+
+function chat(){
+
+        let data ={
+           "room_id" : {{room.id}},
+           "role":{{user.id}},
+           "message" : $('#message').val()
+        }
+
+        $.ajax({
+            type: "post", // 请求方式
+            contentType: "application/json;charset=utf-8",
+            data:JSON.stringify(data),
+            url: "/api/chat",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
+            dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+            success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
+            if (res.statu == "ok") {
+        
+                $("#scrollview").prepend(res.info);//加在前面，append加在后面
+
+            } 
+            },
+
+            error: function (data, status, e) {
+
+            }
+
+      });
+
+
+};
+
     
+
 </script>
 
 

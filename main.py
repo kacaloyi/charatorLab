@@ -16,7 +16,7 @@ from router.auth import UnAuthorizedException
 
 
 
-from router import pages,auth,upload,api
+from router import pages,auth,upload,api,chat
 #from db import SessionLocal, engine
 
 #Python FastAPI 框架 操作Mysql数据库 增删改查
@@ -50,6 +50,7 @@ app.include_router(auth.router)
 app.include_router(upload.router)
 app.include_router(api.router)
 app.include_router(pages.router)
+app.include_router(chat.router)
 
 
 

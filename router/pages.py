@@ -7,7 +7,7 @@ from fastapi import Depends,Cookie,Header,Form, status, FastAPI, HTTPException,R
 from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse,JSONResponse,Response
 
 from router.auth import check_token,pwd_context
-from controls.control import ControlRoom,ControlChat,ControlUser
+from controls.control import ControlRoom,ControlUser
 from models.schemas import *
 from models.db import *
 #from models.models  import *

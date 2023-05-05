@@ -1,0 +1,30 @@
+<div class="msg-row msg-row-light-bg" style="z-index: 0;">
+    <div class="row p-0 m-0">
+        <div class="col-auto p-0">
+            <div class=" sb-avatar sb-avatar--src"
+                style="display: inline-block; vertical-align: middle; width: 45px; height: 45px; border-radius: 100%; font-family: Helvetica, Arial, sans-serif; font-weight: 600;">
+                <img class=" sb-avatar__image" width="45px" height="45px"
+                    src="{{user.avatar}}"
+                    alt="{{user.name}}" title="{{user.name}}"
+                    style="max-width: 100%; width: 45px; height: 45px; border-radius: 100%;">
+            </div>
+        </div>
+        <div class="col-10 p-2 pt-0">
+            <div class="justify-content-start"><span class="msg-author-name"
+                    style="font-weight: 650; font-size: 15px; display: flex; align-items: center;">{{user.name}}</span>
+            </div>
+            <div>
+                <div class="col">
+                    <div class="msg user-msg">
+                        <div class="markdown-wrapper">
+                            <div style="overflow-wrap: break-word;">
+                                <p node="[object Object]"
+                                    style="margin-bottom: 0.5rem;">{{content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

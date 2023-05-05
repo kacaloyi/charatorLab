@@ -115,7 +115,7 @@ $(function () {
         },
 
         error: function (data, status, e) {
-          $("#message").text("find error ,try again");
+          $("#message").text(e);
           //alert(JSON.stringify(data.error), 0);
         }
 

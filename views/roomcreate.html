@@ -500,6 +500,8 @@ function createRoom() {
                 location.href="/room/edit/"+res.room.id;
 
               },1000)
+
+              $("#message").text(res.info);
           //cookieHandler.set("accountId", res.data.user.accountId)
           //cookieHandler.set("cellPhone", res.data.user.cellPhone)
           //$(location).prop('href', './Account.html')
@@ -528,7 +530,7 @@ function upLoad(){
       return 
     }
 
-    if(file.size/1000 > 50 ){
+    if(file.size/1000 > 500 ){
       $("#message").text("图像太大");
       return
 
