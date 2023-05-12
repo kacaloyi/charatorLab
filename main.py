@@ -3,12 +3,15 @@ import os
 import random
 import uvicorn
 from typing import List,Dict,Any
+import dotenv#加载.env中的设定值
+dotenv.load_dotenv()
 
 
 from fastapi.responses import RedirectResponse
 from fastapi import Depends,Cookie,Header,Form, status, FastAPI, HTTPException,Request,File, UploadFile
 from fastapi.responses import PlainTextResponse, HTMLResponse, FileResponse,JSONResponse,Response
 from fastapi.staticfiles import StaticFiles
+
 
 from utils.exception import request_validation_exception_handler,register_middleware,register_exception
 from router.auth import UnAuthorizedException
@@ -36,6 +39,7 @@ from router import pages,auth,upload,api,chat
 #models.Base.metadata.create_all(bind=engine)
 #from admin import app
 app = FastAPI()
+
 # 可选，用于模板引擎渲染网页
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
