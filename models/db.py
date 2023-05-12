@@ -83,7 +83,7 @@ class Room(Base):
     title = Column(String(20),unique=True, index=True)
     talking  = Column(String(20)) #讨论主题
     bot_name = Column(String(20)) #机器人名字
-    sys_prompt  = Column(String(255)) #系统魔法
+    sys_prompt  = Column(String(3200)) #系统魔法
 
     short_script  = Column(String(64)) #短说明
     long_script   = Column(String(255))  #长说明

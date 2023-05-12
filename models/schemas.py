@@ -10,7 +10,7 @@ from pydantic import BaseModel,Field, validator, EmailStr,constr, HttpUrl, FileP
 # 1、创建初始 Pydantic模型/模式
 class dRoomBase(BaseModel):
     title:str       =  Field("多棒的小屋", title="talking", max_length=20, description="房间招牌") #房间招牌
-    sys_prompt: str = Field("你想让AI做点儿什么惊奇的事儿, 比如 ...", title="sys_prompt", max_length=255, description="系统魔法")
+    sys_prompt: str = Field("你想让AI做点儿什么惊奇的事儿, 比如 ...", title="sys_prompt", max_length=3200, description="系统魔法")
 
     short_script: str = Field("介绍你的房间", title="short_script", max_length=64, description="短说明")
     long_script: str  = Field("详细说明房间规则", title="long_script", max_length=255, description="长说明")
