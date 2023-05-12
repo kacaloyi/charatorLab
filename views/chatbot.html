@@ -4,23 +4,18 @@
             <div class="justify-content-start">
                 <div class=" sb-avatar sb-avatar--src"
                     style="display: inline-block; vertical-align: middle; width: 45px; height: 45px; border-radius: 100%; font-family: Helvetica, Arial, sans-serif; font-weight: 600;">
-                    <img class=" sb-avatar__image" width="45px" height="45px"
-                        src="{{room.avatar}}"
-                        alt="{{room.bot_name}}" title="{{room.bot_name}}"
-                        style="max-width: 100%; width: 45px; height: 45px; border-radius: 100%;">
+                    <img class=" sb-avatar__image" width="45px" height="45px" src="{{room.avatar}}" alt="{{room.bot_name}}"
+                        title="{{room.bot_name}}" style="max-width: 100%; width: 45px; height: 45px; border-radius: 100%;">
                 </div>
             </div>
         </div>
         <div class="col-10 p-2 pt-0">
             <div class="justify-content-start">
-                <span
-                    style="font-weight: 650; font-size: 15px; display: flex; align-items: center;">{{room.bot_name}}
-                    <div
-                        style="display: flex; flex: 1 1 0%; align-items: center; justify-content: space-between;">
+                <span style="font-weight: 650; font-size: 15px; display: flex; align-items: center;">{{room.bot_name}}
+                    <div style="display: flex; flex: 1 1 0%; align-items: center; justify-content: space-between;">
                         <div class=" rounded py-0 px-1" aria-label="AI Character"
                             style="margin-left: 5px; background-color: rgb(60, 133, 246); color: white; font-weight: 600; font-size: 12px; --darkreader-inline-bgcolor:#1c4d99; --darkreader-inline-color:#e5e0d8;"
-                            data-darkreader-inline-bgcolor=""
-                            data-darkreader-inline-color="">
+                            data-darkreader-inline-bgcolor="" data-darkreader-inline-color="">
                             <div class="d-flex flex-row">
                                 <div class="d-flex flex-column">AI</div>
                             </div>
@@ -42,19 +37,22 @@
                             <div class="col">
                                 <div class="msg char-msg" style="margin-left: 45px;">
                                     <div style="max-width: 100%;">
-                                        <div
-                                            class="markdown-wrapper markdown-wrapper-last-msg swiper-no-swiping">
+                                        <div class="markdown-wrapper markdown-wrapper-last-msg swiper-no-swiping">
                                             <div style="overflow-wrap: break-word;">
-                                                <p node="[object Object]"
-                                                    style="margin-bottom: 0.5rem;">{{content}}
+                                                {% autoescape false %}
+
+                                                <p node="[object Object]" style="margin-bottom: 0.5rem;">{{content|safe}}
+
                                                 </p>
+                                                {% endautoescape %}
+
                                             </div>
                                         </div>
                                         {% if img != 0 %}
                                         <img src="{{img}}"
                                             style="animation-name: gracefulimage; animation-duration: 0.3s; animation-iteration-count: 1; animation-timing-function: ease-in; max-height: 250px; max-width: 400px; width: auto;">
-                                        
-                                            <div style="visibility: visible;"></div>
+    
+                                        <div style="visibility: visible;"></div>
                                         {% endif %}
                                     </div>
                                     <div></div>
@@ -93,9 +91,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div-->
         </div>
         <div class="swiper-button-prev swiper-button-disabled"></div>
-        <div class="swiper-button-next"></div-->
+        <div class="swiper-button-next"></div>
     </div>
 </div>
