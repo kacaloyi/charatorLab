@@ -110,7 +110,7 @@ class RoomAdmin(ModelView, model=Room):
     #权限
     can_create = True
     can_edit = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
 
 class MessageAdmin(ModelView, model=Message):
@@ -144,7 +144,7 @@ class MessageAdmin(ModelView, model=Message):
     #权限
     can_create = True
     can_edit = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
 
 class HistoryAdmin(ModelView, model=History):
@@ -174,7 +174,7 @@ class HistoryAdmin(ModelView, model=History):
     #权限
     can_create = True
     can_edit = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
 
 class HistoryRoomAdmin(ModelView, model=HistoryRoom):
@@ -204,7 +204,7 @@ class HistoryRoomAdmin(ModelView, model=HistoryRoom):
     #权限
     can_create = True
     can_edit = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
 
 class HistoryMoneyAdmin(ModelView, model=HistoryMoney):
@@ -238,7 +238,7 @@ class HistoryMoneyAdmin(ModelView, model=HistoryMoney):
     #权限
     can_create = True
     can_edit = True
-    can_delete = False
+    can_delete = True
     can_view_details = True
 
 
