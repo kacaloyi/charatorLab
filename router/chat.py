@@ -40,14 +40,31 @@ async def chat(request: Request,chat_data:dict ,  current_user:User=Depends(chec
             # ctx = error['ctx']['xxx'] ctx字段包含原始的中文输入,
             return {"statu":"fail","info":msg}
         
-    room ,message ,img = ControlChat.Chat(chatdata, current_user)
+    chat =  ControlChat()   
+    room ,message ,img = chat.Chat(chatdata, current_user)
     human_tps = templates.get_template("chathuman.html")
     bot_tps   = templates.get_template("chatbot.html")
     msg_human = human_tps.render({"request": request,"user": current_user,"content":chatdata.message})
     msg_bot   = bot_tps.render({"request": request,"room": room,"content":message,"img":img})
 
-    generated = msg_human + msg_bot 
-   # generated ="<div class ='msg-row msg-row-light-bg' style='z-index:0;' >"
-   # generated += "<p>"+chatdata.message+"</p>"
-   # generated += "<p>收到了</p> </div>""""
+    generated =  msg_bot  + msg_human   
+
     return {'statu':'ok','info':generated} 
+
+@router.post("/api/clear",response_model=None)
+async def clear(request: Request,chat_data:dict ,  current_user:User=Depends(check_token)):
+    try:
+        
+        chatdata =  dChartUser(**chat_data) 
+       
+    except ValueError as e:
+        for error in e.errors():
+            msg = error['msg']
+            #msg字段(错误消息)和ctx字段(错误上下文)。
+            # ctx = error['ctx']['xxx'] ctx字段包含原始的中文输入,
+            return {"statu":"fail","info":msg}
+        
+    chat =  ControlChat()  
+    chat.clear(room_id = chat_data.room_id,user_id=current_user.id)
+
+    return {'statu':'ok','info':"clear complateed"} 
