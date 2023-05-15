@@ -138,7 +138,7 @@
                                             </svg></div>
                                         <div>View Saved Chats</div>
                                     </button>
-                                    <button type="button" tabindex="0" role="option" class="dropdown-item"
+                                    <button id="button_clear" type="button" tabindex="0" role="option" class="dropdown-item"
                                         style="display: flex; align-items: center;">
                                         <div style="margin-right: 10px;"><svg stroke="currentColor" fill="none"
                                                 stroke-width="0" viewBox="0 0 24 24" height="24" width="24"
@@ -344,6 +344,7 @@
 $(function () {
 
     $("#submit-message").click(chat); 
+    $("#button_clear").click(clear);
 
 });
 
@@ -371,6 +372,49 @@ function chat(){
             if (res.statu == "ok") {
         
                 $("#scrollview").prepend(res.info);//加在前面，append加在后面
+
+            } 
+            $('#spinner-grow').hide();
+            $('#submit-message').prop('disabled', false);
+            $('#message').prop('disabled', false);
+            },
+
+            error: function (data, status, e) {
+                $('.spinner-border').hide();
+                $('#submit-message').prop('disabled', false);
+                $('#message').prop('disabled', false);
+            }
+
+      });
+
+
+};
+
+
+function clear(){
+        
+
+        let data ={
+           "room_id" : {{room.id}},
+           "role":{{user.id}},
+           "message" : "clear room history"
+        }
+
+        $('#spinner-grow').show();
+        $('#submit-message').prop('disabled', true);
+        $('#message').prop('disabled', true);
+        $('#message').val("") 
+
+        $.ajax({
+            type: "post", // 请求方式
+            contentType: "application/json;charset=utf-8",
+            data:JSON.stringify(data),
+            url: "/api/clear",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
+            dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+            success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
+            if (res.statu == "ok") {
+        
+               // $("#scrollview").prepend(res.info);//加在前面，append加在后面
 
             } 
             $('#spinner-grow').hide();
