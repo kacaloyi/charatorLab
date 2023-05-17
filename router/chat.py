@@ -55,7 +55,7 @@ async def chat(request: Request,chat_data:dict ,  current_user:User=Depends(chec
 async def clear(request: Request,chat_data:dict ,  current_user:User=Depends(check_token)):
     try:
         
-        chatdata =  dChartUser(**chat_data) 
+        cdata =  dChartUser(**chat_data) 
        
     except ValueError as e:
         for error in e.errors():
@@ -65,6 +65,6 @@ async def clear(request: Request,chat_data:dict ,  current_user:User=Depends(che
             return {"statu":"fail","info":msg}
         
     chat =  ControlChat()  
-    chat.clear(room_id = chat_data.room_id,user_id=current_user.id)
+    chat.clear(room_id = cdata.room_id,user_id=current_user.id)
 
     return {'statu':'ok','info':"clear complateed"} 

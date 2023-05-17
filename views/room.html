@@ -68,7 +68,7 @@
             <div class="col-2 col-md-2">
                 <div class="row align-items-center justify-content-end">
                     <div class="col-auto p-0 pe-2">
-                        <div class="row align-items-center"><button class="btn col-auto px-0" title="分享"><svg
+                        <div class="row align-items-center"><button id="btn_share" class="btn col-auto px-0" title="分享" data-bs-toggle ="modal" data-bs-target="#shareModal"><svg
                                     stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512"
                                     height="24" width="24" xmlns="http://www.w3.org/2000/svg"
                                     data-darkreader-inline-fill="" data-darkreader-inline-stroke=""
@@ -241,6 +241,7 @@
                                 </button>
                             </div>
                         </div>
+
                         <div class="spinner-grow text-primary" id = "spinner-grow" role="status" style="display:none">
                             <span class="visually-hidden">Loading...</span>                        
                         </div> 
@@ -333,6 +334,32 @@
 <div class="ReactModalPortal"></div>
 <div class="ReactModalPortal"></div>
 
+
+<!-------------------------分享------------------------------->
+<!--------------------------------------------->
+                      <!-- Modal -->
+                      <div class="modal fade" id="shareModal" tabindex="-1" role="dailog" aria-labelledby="shareModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" >保存图片分享给朋友</h5>
+                              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              
+                              <div class="d-flex justify-content-center">
+                                <img id ="shareimg" src="/static/img/back.jpg" >
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
 {% endblock %}
 
 {% block  script %}  
@@ -345,6 +372,7 @@ $(function () {
 
     $("#submit-message").click(chat); 
     $("#button_clear").click(clear);
+    $('#btn_share').click(showShareQrCode);
 
 });
 
@@ -367,7 +395,7 @@ function chat(){
             contentType: "application/json;charset=utf-8",
             data:JSON.stringify(data),
             url: "/api/chat",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
-            dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+            //dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
             success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
             if (res.statu == "ok") {
         
@@ -417,12 +445,14 @@ function clear(){
                // $("#scrollview").prepend(res.info);//加在前面，append加在后面
 
             } 
+            $("#scrollview").empty();
             $('#spinner-grow').hide();
             $('#submit-message').prop('disabled', false);
             $('#message').prop('disabled', false);
             },
 
             error: function (data, status, e) {
+                $("#scrollview").empty();
                 $('.spinner-border').hide();
                 $('#submit-message').prop('disabled', false);
                 $('#message').prop('disabled', false);
@@ -433,7 +463,30 @@ function clear(){
 
 };
 
-    
+    // 定义函数，用于弹出分享二维码
+function showShareQrCode() {
+        // 发送请求，获取分享二维码图片
+        $.ajax({
+            url: "/api/share",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                avatar_url: "{{room.avatar}}",
+                share_url: "{{room.id}}",
+                text: "{{room.short_script}}"
+            }),
+            success: function(data) {
+             
+                
+
+                // 创建图片元素
+                var img = $("#shareimg").attr("src", data)
+
+
+
+            }
+        });
+    }    
 
 </script>
 

@@ -8,3 +8,4 @@ typing
 pymysql
 easy_i18n
 loguru
+qrcode

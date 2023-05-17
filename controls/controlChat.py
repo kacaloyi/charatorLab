@@ -147,15 +147,12 @@ class  ControlChat(ChatManager):
         #9 拼装返回信息"
     
         return room ,markdown(output ) ,0
-    
-    #删除历史记录，清除历史记录。
+     
+    #清除历史记录，删除Chat_bot，以后需要的时候重新加载
     def clear(self,room_id:int,user_id:int):
 
         sid = self._make_session_id(room_id=room_id,user_id = user_id)
-        ct  = self.getChatbySessionid(sid)
-        if sid is not None :
-            ct.clear()
-
-
-        session.query(Message).filter(room_id = room_id,user_id = user_id).delete()
+        self.deleteChatBySessionid(sid) #删掉重来 
+        #清空所有历史记录
+        session.query(Message).filter(Message.room_id == room_id,Message.user_id == user_id).delete()
         return
