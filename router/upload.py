@@ -19,7 +19,7 @@ router = APIRouter()
 
 
 
-ALLOWED_EXTENSIONS = {'txt','jpg','png'}
+ALLOWED_EXTENSIONS = {'jpg','png'}
 
 
 def allowed_file(filename):
@@ -27,7 +27,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-@router.post("/uploadfile/")
+@router.post("/uploadfile/", response_class=JSONResponse)
 async def create_upload_file(file: UploadFile = File(...)):
     if (file.size/1000 )> 500  :
         return {"error": "file is so big"}

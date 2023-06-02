@@ -1,0 +1,254 @@
+{% extends "base.html" %}       {# 继承base.html文件#}
+ 
+{% block title %}Priceing Table{% endblock %}   {#  定制title部分的内容#}
+
+{% block content %}
+<style>
+
+.single-price {
+  text-align: center;
+  background: #262626;
+  transition: .7s;
+  margin-top: 20px;
+}
+.single-price h3 {
+  font-size: 25px;
+  color: #000;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  margin-top: -80px;
+  font-family: poppins;
+  color: #fff;
+}
+.single-price h4 {
+  font-size: 48px;
+  font-weight: 500;
+  color: #fff;
+}
+.single-price h4 span.sup {
+  vertical-align: text-top;
+  font-size: 25px;
+}
+.deal-top {
+  position: relative;
+  background: #16A086;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 136px 24px 0;
+}
+.deal-top::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -50px;
+  width: 0;
+  height: 0;
+  border-top: 50px solid #16A086;
+  border-left: 0em solid transparent;
+  border-right: 15em solid transparent;
+}
+.deal-bottom {
+  padding: 56px 16px 0;
+}
+.deal-bottom ul {
+  margin: 0;
+  padding: 0;
+}
+.deal-bottom  ul li {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 300;
+  margin-top: 16px;
+  border-top: 1px solid #E4E4E4;
+  padding-top: 16px;
+  list-style: none;
+}
+.btn-area a {
+  display: inline-block;
+  font-size: 18px;
+  color: #fff;
+  background: #16A086;
+  padding: 8px 64px;
+  margin-top: 32px;
+  border-radius: 4px; 
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+.single-price:hover {
+  background: #16A086;
+}
+.single-price:hover .deal-top {
+  background: #262626;
+}
+.single-price:hover .deal-top:after {
+  border-top: 50px solid #262626;
+}
+.single-price:hover .btn-area a {
+  background: #262626;
+}
+
+
+
+
+
+/* ignore the code below */
+
+
+.link-area
+{
+  position:fixed;
+  bottom:20px;
+  left:20px;  
+  padding:15px;
+  border-radius:40px;
+  background:tomato;
+}
+.link-area a
+{
+  text-decoration:none;
+  color:#fff;
+  font-size:25px;
+}
+
+
+
+
+
+</style>
+
+
+<div class="pricing-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="single-price">
+            <div class="deal-top">
+              <h3>Basic</h3>
+              <h4> 29 <span class="sup">$</span> </h4> 
+            </div>
+            <div class="deal-bottom">
+              <ul class="deal-item">
+                <li>10 GB Storage</li>
+                <li>10 Email address</li>
+                <li>10 Domain names</li>
+                <li>500 gb Bandwidth </li>
+                <li>24 hour Support </li>
+              </ul>
+              <div class="btn-area"  id ="Priceing1"  value="1">
+                <a href="#">Sign Up</a>       
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="single-price">
+            <div class="deal-top">
+              <h3>Standard</h3>
+              <h4> 59 <span class="sup">$</span> </h4>
+            </div>
+            <div class="deal-bottom">
+              <ul class="deal-item">
+                <li>50 GB Storage</li>
+                <li>50 Email address</li>
+                <li>50 Domain names</li>
+                <li>1 TB Bandwidth </li>
+                <li>24 hour Support </li>
+              </ul>
+              <div class="btn-area" id ="Priceing2"  value="2">
+                <a href="#">Sign Up</a>       
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="single-price">
+            <div class="deal-top">
+              <h3>Professional</h3>
+              <h4> 79 <span class="sup">$</span> </h4> 
+            </div>
+            <div class="deal-bottom">
+              <ul class="deal-item">
+                <li>100 GB Storage</li>
+                <li>100 Email address</li>
+                <li>100 Domain names</li>
+                <li>5 TB Bandwidth </li>
+                <li>24 hour Support </li>
+              </ul>
+              <div class="btn-area" id ="Priceing3" value="3">
+                <a href="#">Sign Up</a>       
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>       
+  
+  
+  </div>
+
+
+
+{% endblock %}
+
+
+
+{% block  script %}  
+{{  super()  }} 
+
+<script  type="text/javascript">
+
+$(function () {
+  $("#Priceing1").click(pay); 
+  $("#Priceing2").click(pay);
+  $('#Priceing3').click(pay);
+
+});
+
+// 创建一个函数，接收url作为参数
+function openUrlInPopup(url) {
+  // 使用jQuery的window.open()方法打开一个新窗口
+  var popup = window.open(url);
+  // 确保弹出窗口已经加载完毕
+  $(popup).load(function() {
+    // 在弹出窗口中访问url
+    popup.location.href = url;
+  });
+}
+
+function pay(e){
+   //e.preventDeault()
+
+    let data ={
+      "user_id":{{user.id}},
+      "payment" : $(this).attr('value')
+    }
+
+    $.ajax({
+        type: "post", // 请求方式
+        contentType: "application/json;charset=utf-8",
+        data:JSON.stringify(data),
+        url: "/alipay",// login + "v1/userLogin?loginName=" + data.loginName + "&loginType=" + data.loginType + "&password=" + data.password,
+        dataType: "json", // 返回数据类型，数据类型可以为 text xml json  script  jsonp
+        success: function (res) { // 返回的参数就是 action里面所有的有get和set方法的参数
+        if (res.statu == "ok") {
+        
+          openUrlInPopup(res.alipay_url)
+
+        } 
+        },
+
+        error: function (data, status, e) {
+
+        }
+
+    });
+
+  }
+
+</script>
+{% endblock %}

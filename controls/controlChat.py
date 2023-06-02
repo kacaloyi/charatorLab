@@ -117,8 +117,7 @@ class  ControlChat(ChatManager):
         #output = chain.predict(input=chatdata.message)
 
         chat_bot,room = self._load_chatbot(chatdata=chatdata,user=user)
-        print (chat_bot)
-        print ("__________________________________________________________")
+
 
         from langchain.callbacks import get_openai_callback
         with get_openai_callback() as cb:
@@ -131,7 +130,7 @@ class  ControlChat(ChatManager):
 
         
         output = output
-        print ("______==============================================________")
+      
         #7 处理消费
         
         session.query(User).filter(id==user.id).update({User.egg:User.egg-cb.total_cost})

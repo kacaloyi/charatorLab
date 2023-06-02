@@ -97,3 +97,8 @@ async def roomedit(roomid:int,request: Request,current_user:User=Depends(check_t
 async def usercenter(request: Request,current_user:User=Depends(check_token)): 
 
     return templates.TemplateResponse("usercenter.html",{"request": request,"user":current_user})
+
+@router.get("/pay", response_class=HTMLResponse)
+async def pay(request: Request,current_user:User=Depends(check_token)): 
+
+    return templates.TemplateResponse("pay.html",{"request": request,"user":current_user})

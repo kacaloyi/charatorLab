@@ -64,6 +64,11 @@ def create_Room_for_user(room_data:dict, current_user:User=Depends(check_token))
 
         
     newroom = ControlRoom.create_room(room,current_user)
+
+    roommsg = HistoryRoom(wtype=logTypeRoom.roomcreate,user_id=current_user.id,room_id=newroom.id,info="创建")
+    session.add(roommsg)
+    session.commit()
+
     
     return  {"statu":"ok","room":newroom,"owner":current_user.id}
 
@@ -116,7 +121,7 @@ def open_image_url(url:str):
 
 
 
-@router.post("/api/share")
+@router.post("/api/share", response_class=PlainTextResponse)
 async def share(request: Request):
     data = await request.json()
 

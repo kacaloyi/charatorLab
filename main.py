@@ -18,8 +18,8 @@ from router.auth import UnAuthorizedException
 
 
 
-
-from router import pages,auth,upload,api,chat
+from fastapi.middleware.cors import CORSMiddleware
+from router import pages,auth,upload,api,chat,pay ,vector
 #from db import SessionLocal, engine
 
 #Python FastAPI 框架 操作Mysql数据库 增删改查
@@ -40,6 +40,21 @@ from router import pages,auth,upload,api,chat
 #from admin import app
 app = FastAPI()
 
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    "*",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 # 可选，用于模板引擎渲染网页
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -55,6 +70,8 @@ app.include_router(upload.router)
 app.include_router(api.router)
 app.include_router(pages.router)
 app.include_router(chat.router)
+app.include_router(pay.router)
+app.include_router(vector.router)
 
 
 

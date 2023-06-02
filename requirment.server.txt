@@ -9,3 +9,4 @@ pymysql
 easy_i18n
 loguru
 qrcode
+python-alipay-sdk
