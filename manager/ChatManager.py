@@ -5,30 +5,37 @@ from manager.ChatFactory import ChatFactory
 
 
 class ChatManager(metaclass=Singleton):
-    def __init__(self):
-        self.chatFactory =  ChatFactory()
-        self.chats = {}
+    
+    chatFactory =  ChatFactory()
+    chats = {}
 
-    def getChatbySessionid(self, sessionid):
-        if sessionid not in self.chats:
+    def __init__(self):
+        super().__init__()
+
+    @classmethod
+    def getChatbySessionid(cls, sessionid):
+        if sessionid not in cls.chats:
             return None
             #self.chats[sessionid] =  self.chatFactory.createChat(sessionid,roomtlp,history,option)
 
-        return self.chats[sessionid]
+        return cls.chats[sessionid]
     
-    def createChat(self,sessionid:str,room_template:str,histroy:list,option:dict):        
-        self.poll(DEAD_LIMIT=DEAD_LIMIT)
+    @classmethod
+    def createChat(cls,sessionid:str,room_template:str,histroy:list,option:dict):        
+        cls.poll(DEAD_LIMIT=DEAD_LIMIT)
         
-        chat = self.chatFactory.createChat(sessionid=sessionid,roomtlp=room_template,history=histroy,option=option)
-        self.chats[sessionid] = chat
+        chat = cls.chatFactory.createChat(sessionid=sessionid,roomtlp=room_template,history=histroy,option=option)
+        cls.chats[sessionid] = chat
         return chat
 
-    def deleteChatBySessionid(self, sessionid):
-        if sessionid in self.chats:
-            del self.chats[sessionid]
+    @classmethod
+    def deleteChatBySessionid(cls, sessionid):
+        if sessionid in cls.chats:
+            del cls.chats[sessionid]
 
-    def poll(self, DEAD_LIMIT):
+    @classmethod
+    def poll(cls, DEAD_LIMIT):
         now = time.time()
-        for sessionid, chat in self.chats.items():
+        for sessionid, chat in cls.chats.items():
             if now - chat.lastupdatetime > DEAD_LIMIT:
-                self.deleteChatBySessionid(sessionid)
+                cls.deleteChatBySessionid(sessionid)

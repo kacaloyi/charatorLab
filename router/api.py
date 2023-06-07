@@ -70,7 +70,7 @@ def create_Room_for_user(room_data:dict, current_user:User=Depends(check_token))
     session.commit()
 
     
-    return  {"statu":"ok","room":newroom,"owner":current_user.id}
+    return  {"statu":"ok","roomid":newroom.id,"owner":current_user.id}
 
 
 # 编辑room，不能编辑历史资料

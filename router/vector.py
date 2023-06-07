@@ -11,7 +11,7 @@ from controls.utills.summarization import llm_evaluate_summaries
 from controls.utills.utils import similarity_search
 from controls.utills.utils import common_dependencies,  CommonsDep
 from controls.utills.utils import ChatMessage
-#from llm.qa import get_qa_llm
+#from controls.utills.llm.qa import get_qa_llm
 from controls.utills.parsers.common import file_already_exists
 from controls.utills.parsers.txt import process_txt
 from controls.utills.parsers.csv import process_csv
@@ -86,6 +86,14 @@ file_processors = {
 
 
 async def filter_file(file: UploadFile, enable_summarization: bool, supabase_client: Client):
+
+    print(supabase_client.supabase_key)
+    print(supabase_client.storage_url)
+    print(supabase_client.auth)
+    ok = await file_already_exists(supabase_client, file)
+    print(ok)
+    #return {"message": f"🤔 {file.filename} already exists.", "type": "warning"}
+
     if await file_already_exists(supabase_client, file):
         return {"message": f"🤔 {file.filename} already exists.", "type": "warning"}
     elif file.file._file.tell() < 1:
@@ -106,7 +114,7 @@ async def upload_file(file: UploadFile, enable_summarization: bool = False,curre
     message = await filter_file(file, enable_summarization, commons['supabase'])
     return message
 
-'''
+''' 不需要这个函数，统一到api/chat中对话。
 @router.post("/vec/chat/")
 async def chat_endpoint(commons: CommonsDep, chat_message: ChatMessage,current_user:User=Depends(check_token)):
     history = chat_message.history

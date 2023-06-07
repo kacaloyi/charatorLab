@@ -16900,9 +16900,9 @@ h2, .h2 {
   .hero .btn {
     min-width: 300px;
     width: 100%; }
-  .dropdown {
+  /*.dropdown {
     min-width: 300px;
-    width: 100%; }
+    width: 100%; }*/
   .dropdown-menu {
     min-width: 300px;
     width: 100%; } }
