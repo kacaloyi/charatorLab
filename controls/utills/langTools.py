@@ -5,6 +5,7 @@ from langchain.tools import *
 from langchain.tools import BaseTool, StructuredTool, Tool, tool
 from langchain import LLMMathChain
 from langchain.chat_models import ChatOpenAI
+from langchain.llms import OpenAI
 from pydantic import BaseModel, Field
 
 #不用乱，这里弄两个tool
@@ -30,7 +31,7 @@ def create_tools(option:dict):
             ),
         ]
 
-        llm = ChatOpenAI(temperature=0)
+        llm = OpenAI(temperature=0)
         llm_math_chain = LLMMathChain(llm=llm, verbose=True)
 
 

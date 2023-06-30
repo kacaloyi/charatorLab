@@ -5,6 +5,15 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationChain
 from langchain.prompts.prompt import PromptTemplate
 
+from langchain.prompts import (
+    ChatPromptTemplate, 
+    MessagesPlaceholder, 
+    SystemMessagePromptTemplate, 
+    HumanMessagePromptTemplate
+)
+
+from controls.utills.langPrompt import role_play_prompt
+
 
 #以Chat为基类，衍生ChatChain类和ChatAgent类。 
 #前面的代码改写，生成Chat的时候，送入一个参数class Room,依据Room.type的不同，生成不同的Chat子类，但是由ChatManager统一管理。
@@ -20,19 +29,24 @@ class ChatChain(Chat):
             temperature = option['temperature']
         return ChatOpenAI(temperature=temperature) 
     
-    def _create_prompt_template(self,room_template):
-        CHAIN_TEMPLATE = room_template + """
-
-            Current conversation:
-            {history}
-            Human: {input}
-            AI:"""
+    def _create_prompt_template(self,room_template):#Current conversation:
+        CHAIN_TEMPLATE ="The following is a friendly conversation between a human and an AI."+ room_template + role_play_prompt 
 
         CHAIN_PROMPT = PromptTemplate(
                 input_variables=["history", "input"], template=CHAIN_TEMPLATE
             )
         
         return CHAIN_PROMPT
+    """def _create_prompt_template(self,room_template):#Current conversation:
+        prompt = ChatPromptTemplate.from_messages([
+
+        #SystemMessagePromptTemplate.from_template("The following is a friendly conversation between a human and an AI. The AI is talkative and provides lots of specific details from its context. If the AI does not know the answer to a question, it truthfully says it does not know."),
+        SystemMessagePromptTemplate.from_template("The following is a friendly conversation between a human and an AI."+room_template),
+        MessagesPlaceholder(variable_name="history"),
+        HumanMessagePromptTemplate.from_template("{input}")
+        ])
+        
+        return prompt  """
     
     def _create_memery(self,history,option:dict):
         memory=ConversationBufferWindowMemory(k=6)
